@@ -121,7 +121,7 @@ public final class EmojiPickerViewController: UIViewController {
         viewModel = EmojiPickerViewModel(emojiManager: emojiManager)
         
         super.init(nibName: nil, bundle: nil)
-        modalPresentationStyle = .popover
+        modalPresentationStyle = .pageSheet
         
         setupDelegates()
         bindViewModel()
