@@ -30,8 +30,8 @@ public protocol EmojiPickerDelegate: AnyObject {
     func didGetEmoji(emoji: String)
 }
 
-/// Emoji Picker view controller. 
-public final class EmojiPickerViewController: UIViewController {
+/// Emoji Picker view controller.
+public final class EmojiPickerViewController: UIViewController, UISheetPresentationControllerDelegate {
     
     // MARK: - Public Properties
     
@@ -123,6 +123,15 @@ public final class EmojiPickerViewController: UIViewController {
         super.init(nibName: nil, bundle: nil)
         modalPresentationStyle = .pageSheet
         
+        if #available(iOS 15.0, *) {
+            let sheet = self.sheetPresentationController!
+            sheet.delegate = self
+            sheet.detents = [.medium(), .large()]
+            sheet.prefersGrabberVisible = false
+        } else {
+            // Fallback on earlier versions
+        }
+        
         setupDelegates()
         bindViewModel()
     }
@@ -190,7 +199,7 @@ public final class EmojiPickerViewController: UIViewController {
                 return CGSize(width: 410, height: 460)
             }
         }()
-       
+        
         preferredContentSize = size
     }
     
@@ -207,7 +216,7 @@ public final class EmojiPickerViewController: UIViewController {
             x: 0,
             y: popoverPresentationController?.permittedArrowDirections == .up ? horizontalInset : -horizontalInset,
             width: sourceView.frame.width,
-            height: sourceView.frame.height
+            height: sourceView.frame.height*0.5
         )
     }
 }
