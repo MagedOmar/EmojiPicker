@@ -126,7 +126,7 @@ public final class EmojiPickerViewController: UIViewController, UISheetPresentat
         if #available(iOS 15.0, *) {
             let sheet = self.sheetPresentationController!
             sheet.delegate = self
-            sheet.detents = [.medium(), .large()]
+            sheet.detents = [.medium()]
             sheet.prefersGrabberVisible = false
         } else {
             // Fallback on earlier versions
